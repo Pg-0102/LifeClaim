@@ -1,8 +1,6 @@
 package com.iceclaim.life_claim.entities;
 
-import jakarta.persistence.Embedded;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,4 +17,18 @@ public class Claims {
 
     @Embedded
     private BankDetails bankDetails;
+
+    @ManyToOne
+    @JoinColumn(name = "policy_id")
+    private Policy policy;
+
+    @OneToOne(cascade = CascadeType.ALL,orphanRemoval = true)
+    @JoinColumn(name="decesed_id")
+    private  Deceased deceased;
+
+    @ManyToOne
+    @JoinColumn(name = "claimants_id")
+    private  Claimants claimants;
+
+
 }
